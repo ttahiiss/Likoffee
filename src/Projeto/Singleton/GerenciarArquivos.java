@@ -75,7 +75,7 @@ public class GerenciarArquivos {
     }
 
     public void adicionarQuantidade(String tipo, int quantidade) {
-        int atual = estoqueQuantidades.getOrDefault(tipo, 0);
+        int atual = estoqueQuantidades.getOrDefault(tipo,0);
         estoqueQuantidades.put(tipo, atual + quantidade);
         salvarEstoque();
     }

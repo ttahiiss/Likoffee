@@ -11,7 +11,20 @@ static List<Cafe> carrinho = new ArrayList<>();
 static CafeFactory factory = new CafeFactory();
 
 
+
 void main() {
+    GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
+    estoque.adicionarQuantidade("Expresso", 50);
+    estoque.adicionarQuantidade("Expresso", 52);
+    estoque.adicionarQuantidade("Latte", 30);
+    estoque.adicionarQuantidade("Frappe", 20);
+    estoque.adicionarQuantidade("Coado", 25);
+    //estoque.adicionarQuantidade("CafeComLeite", 15);
+    estoque.adicionarQuantidade("Cappuccino", 23);
+    estoque.adicionarQuantidade("Cortado", 20);
+    estoque.adicionarQuantidade("Mocha", 10);
+    //estoque.adicionarQuantidade("Icedcoffee", 10);
+    estoque.adicionarQuantidade("Americano", 20);
 
     System.out.println("--- Liko's Coffee ---");
     System.out.println(" ");
