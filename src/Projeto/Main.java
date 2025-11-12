@@ -227,15 +227,8 @@ public static void executarModoGerente() {
                 estoque.adicionarQuantidade(tipoAdd, qtdAdd);
                 break;
 
-            // case 3:
-            //System.out.print("Digite o tipo do café: ");
-            //String tipoRemove = scanner.nextLine();
-            //System.out.print("Digite a quantidade a remover: ");
-            // int qtdRemove = scanner.nextInt();
-            //boolean sucesso = estoque.removerQuantidade(tipoRemove, qtdRemove);
-            //System.out.println(sucesso ? "Removido com sucesso!" : "Falha ao remover!");
-            // break;
-
+            case 3:
+                //ta faltano
 
             case 4:
                 System.out.println("Saindo do sistema...");
