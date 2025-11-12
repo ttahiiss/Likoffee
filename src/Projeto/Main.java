@@ -144,11 +144,11 @@ public static Cafe processarEscolha ( int opcao){
 
 public static void finalizarPedido() {
     if (carrinho.isEmpty()) {
-        System.out.println("O carrinho está vazio!");
+        System.out.println("O carrinho está vazio :(");
         return;
     }
 
-    System.out.println("\n=== SEU PEDIDO ==="); // Adicionei as barrinhas
+    System.out.println("- Seu pedido -");
 
     Map<String, Integer> quantidadeItens = new HashMap<>();
     Map<String, Double> precoItens = new HashMap<>();
