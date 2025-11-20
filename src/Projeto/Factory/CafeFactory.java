@@ -1,5 +1,5 @@
 package Projeto.Factory;
-import Projeto.Factory.Pedido.Cafe;
+import Projeto.Factory.Pedido.CafeInterface;
 import Projeto.Factory.Pedido.Expresso;
 import Projeto.Factory.Pedido.Coado;
 import Projeto.Factory.Pedido.CafeComLeite;
@@ -10,7 +10,7 @@ import Projeto.Factory.Pedido.IcedCoffee;
 import Projeto.Factory.Pedido.Frappe;
 
 public class CafeFactory {
-    public Cafe criarCafe(String tipo) {
+    public CafeInterface criarCafe(String tipo) {
         switch (tipo.toLowerCase()) {
             case "expresso":
                 return new Expresso();
