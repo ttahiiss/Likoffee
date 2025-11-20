@@ -1,6 +1,6 @@
 package Projeto.Factory.Pedido;
 
-public class Expresso implements Cafe {
+public class Expresso implements CafeInterface {
 
     @Override
     public String getDescricao() {

@@ -1,13 +1,13 @@
 
 import Projeto.Factory.CafeFactory;
-import Projeto.Factory.Pedido.Cafe;
+import Projeto.Factory.Pedido.CafeInterface;
 import Projeto.Singleton.GerenciarArquivos;
 import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
 
 static Scanner entrada = new Scanner(System.in);
-static List<Cafe> carrinho = new ArrayList<>();
+static List<CafeInterface> carrinho = new ArrayList<>();
 static CafeFactory factory = new CafeFactory();
 
 
@@ -51,7 +51,7 @@ public static void executarModoCliente(){
         mostrarCardapio();
 
         int pedido = entrada.nextInt();
-        Cafe cafeEscolhido = processarEscolha(pedido);
+        CafeInterface cafeEscolhido = processarEscolha(pedido);
 
         if (cafeEscolhido != null) {
             System.out.println("Café selecionado: " + cafeEscolhido.getDescricao());
@@ -105,7 +105,7 @@ public static void mostrarCardapio() {
     System.out.print("Escolha o número do café: ");
 }
 
-public static Cafe processarEscolha ( int opcao){
+public static CafeInterface processarEscolha (int opcao){
     switch (opcao) {
         case 1:
             return factory.criarCafe("expresso");
@@ -140,10 +140,10 @@ public static void finalizarPedido() {
     Map<String, Integer> quantidadeItens = new HashMap<>();
     Map<String, Double> precoItens = new HashMap<>();
 
-    for (Cafe cafe : carrinho) {
-        String descricao = cafe.getDescricao();
+    for (CafeInterface cafeInterface : carrinho) {
+        String descricao = cafeInterface.getDescricao();
         quantidadeItens.put(descricao, quantidadeItens.getOrDefault(descricao, 0) + 1);
-        precoItens.put(descricao, cafe.calcularPreco());
+        precoItens.put(descricao, cafeInterface.calcularPreco());
     }
 
     double total = 0;
@@ -175,10 +175,10 @@ public static void mostrarCarrinho() {
     Map<String, Integer> quantidadeItens = new HashMap<>();
     Map<String, Double> precoItens = new HashMap<>();
 
-    for (Cafe cafe : carrinho) {
-        String descricao = cafe.getDescricao();
+    for (CafeInterface cafeInterface : carrinho) {
+        String descricao = cafeInterface.getDescricao();
         quantidadeItens.put(descricao, quantidadeItens.getOrDefault(descricao, 0) + 1);
-        precoItens.put(descricao, cafe.calcularPreco());
+        precoItens.put(descricao, cafeInterface.calcularPreco());
     }
 
     double total = 0;

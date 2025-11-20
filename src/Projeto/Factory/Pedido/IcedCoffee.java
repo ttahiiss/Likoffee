@@ -1,6 +1,6 @@
 package Projeto.Factory.Pedido;
 
-public class IcedCoffee implements Cafe {
+public class IcedCoffee implements CafeInterface {
     @Override
     public String getDescricao() {
         return "Café coado gelado lentamente por 12 horas. Sabor suave e refrescante, servido com gelo.";

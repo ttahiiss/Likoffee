@@ -3,7 +3,7 @@ package Projeto.Singleton;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import Projeto.Factory.Pedido.Cafe;
+import Projeto.Factory.Pedido.CafeInterface;
 import Projeto.Factory.CafeFactory;
 
 public class GerenciarArquivos {
@@ -62,8 +62,8 @@ public class GerenciarArquivos {
                 String tipo = entry.getKey();
                 int quantidade = entry.getValue();
 
-                Cafe cafe = cafeFactory.criarCafe(tipo);
-                double preco = cafe.calcularPreco();
+                CafeInterface cafeInterface = cafeFactory.criarCafe(tipo);
+                double preco = cafeInterface.calcularPreco();
 
                 String linha = String.format("%s|%.2f|%d", tipo, preco, quantidade);
                 bw.write(linha);
@@ -84,12 +84,12 @@ public class GerenciarArquivos {
         System.out.println("=== ESTOQUE COMPLETO DE CAFÉS (INCLUINDO ZERADOS) ===");
 
         for (String tipo : estoqueQuantidades.keySet()) {
-            Cafe cafe = cafeFactory.criarCafe(tipo);
+            CafeInterface cafeInterface = cafeFactory.criarCafe(tipo);
             int quantidade = estoqueQuantidades.get(tipo);
 
             System.out.printf("%-15s - R$%-6.2f - %3d unidades%n",
                     tipo,
-                    cafe.calcularPreco(),
+                    cafeInterface.calcularPreco(),
                     quantidade);
         }
     }

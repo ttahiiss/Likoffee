@@ -1,6 +1,6 @@
 package Projeto.Factory.Pedido;
 
-public class Cappuccino implements Cafe {
+public class Cappuccino implements CafeInterface {
 
 
     @Override

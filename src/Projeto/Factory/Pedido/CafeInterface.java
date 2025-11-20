@@ -1,6 +1,6 @@
 package Projeto.Factory.Pedido;
 
-public interface Cafe {
+public interface CafeInterface {
     String getDescricao();
     double calcularPreco();
 }

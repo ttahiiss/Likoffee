@@ -1,6 +1,6 @@
 package Projeto.Factory.Pedido;
 
-public class Coado implements Cafe {
+public class Coado implements CafeInterface {
     @Override
     public String getDescricao() {
         return "Café puro e intenso, preparado sob pressão com grãos moídos na hora. Sabor encorpado e cremoso";
