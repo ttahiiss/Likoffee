@@ -10,21 +10,7 @@ static Scanner entrada = new Scanner(System.in);
 static List<CafeInterface> carrinho = new ArrayList<>();
 static CafeFactory factory = new CafeFactory();
 
-
-
 void main() {
-    GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
-    estoque.adicionarQuantidade("Expresso", 50);
-    estoque.adicionarQuantidade("Expresso", 52);
-    estoque.adicionarQuantidade("Latte", 30);
-    estoque.adicionarQuantidade("Frappe", 20);
-    estoque.adicionarQuantidade("Coado", 25);
-    //estoque.adicionarQuantidade("CafeComLeite", 15);
-    estoque.adicionarQuantidade("Cappuccino", 23);
-    estoque.adicionarQuantidade("Cortado", 20);
-    estoque.adicionarQuantidade("Mocha", 10);
-    //estoque.adicionarQuantidade("Icedcoffee", 10);
-    estoque.adicionarQuantidade("Americano", 20);
 
     System.out.println("--- Liko's Coffee ---");
     System.out.println(" ");
@@ -44,7 +30,8 @@ void main() {
         if (validarSenha(senha)) {
             executarModoGerente();
         } else {
-            System.out.println("Senha incorreta! Voltando ao menu...");
+            System.out.println("Senha incorreta! Voltando ao menu");
+            main();
         }
     }
 }
@@ -86,21 +73,12 @@ public static void executarModoCliente(){
 
                 if (opcao == 2) {
                     mostrarCarrinho();
-                } else if (opcao == 3) {
-                    finalizarPedido = true;
                 }
-            } else {
-                System.out.println("\nO que deseja fazer?");
-                System.out.println("1- Adicionar mais itens");
-                System.out.println("2- Ver carrinho");
-                System.out.println("3- Finalizar pedido");
-                System.out.print("Escolha uma opção: ");
-                int opcao = entrada.nextInt();
-
-                if (opcao == 2) {
-                    mostrarCarrinho();
-                } else if (opcao == 3) {
+                if (opcao == 3) {
                     finalizarPedido = true;
+                } else {
+                    System.out.println("\nOpção invalida");
+                    executarModoCliente();
                 }
             }
         }
@@ -113,12 +91,14 @@ public static void mostrarCardapio() {
     System.out.println("Tradicionais -         Especiais -           Cafés gelados -");
     System.out.println("1- Expresso            4- Cappuccino         7- Iced coffee");
     System.out.println("2- Café coado          5- Latte              8- Frappé");
-    System.out.println("3- Café com leite      6- Mocha");
+    System.out.println("3- Café com leite      6- Mocha              9- Sair");
     System.out.println(" ");
     System.out.print("Escolha o número do café: ");
 }
 
 public static CafeInterface processarEscolha (int opcao){
+    Scanner scanner = new Scanner(System.in);
+    GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
     switch (opcao) {
         case 1:
             return factory.criarCafe("expresso");
@@ -136,6 +116,12 @@ public static CafeInterface processarEscolha (int opcao){
             return factory.criarCafe("iced coffee");
         case 8:
             return factory.criarCafe("frappe");
+        case 9:
+            System.out.println("Salvando o estoque");
+            System.out.println("Saindo, volte sempre! :D");
+            estoque.salvarEstoque();
+            scanner.close();
+            System.exit(0);
         default:
             System.out.println("Opção inválida!");
             return null;
@@ -207,7 +193,6 @@ public static void mostrarCarrinho() {
 
     System.out.printf("Total parcial: R$ %.2f\n", total);
     System.out.println("====================");
-
 }
 
 public static void executarModoGerente() {
@@ -220,7 +205,7 @@ public static void executarModoGerente() {
     while (true) {
         System.out.println("1. Listar estoque completo");
         System.out.println("2. Adicionar quantidade");
-        System.out.println("3. Remover quantidade");
+        System.out.println("3. Remover item do estoque");
         System.out.println("4. Sair");
         System.out.print("Escolha uma opção: ");
 
@@ -233,7 +218,9 @@ public static void executarModoGerente() {
                 break;
 
             case 2:
-                System.out.print("Digite o tipo do café: ");
+                System.out.print("==Opções==\n");
+                System.out.println("Americano | Cafe com Leite | Cappuccino | \nCoado | Cortado | Expresso | \nFrappe | IcedCoffee | Latte | \nou Mocha");
+                System.out.print("Digite o tipo do café: \n");
                 String tipoAdd = scanner.nextLine();
                 System.out.print("Digite a quantidade a adicionar: ");
                 int qtdAdd = scanner.nextInt();
@@ -241,9 +228,14 @@ public static void executarModoGerente() {
                 break;
 
             case 3:
-                //ta faltano
+                entrada.nextLine();
+                System.out.print("Digite o tipo do café a remover: ");
+                String tipoRemover = entrada.nextLine();
+                estoque.removerCafe(tipoRemover, true);
+                break;
 
             case 4:
+                estoque.salvarEstoque();
                 System.out.println("Saindo do sistema...");
                 scanner.close();
                 return;
@@ -257,5 +249,3 @@ public static void executarModoGerente() {
 public static boolean validarSenha(String senha) {
     return senha.equals("admin123");
 }
-
-
