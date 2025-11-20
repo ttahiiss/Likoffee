@@ -11,7 +11,20 @@ static List<CafeInterface> carrinho = new ArrayList<>();
 static CafeFactory factory = new CafeFactory();
 
 
+
 void main() {
+    GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
+    estoque.adicionarQuantidade("Expresso", 50);
+    estoque.adicionarQuantidade("Expresso", 52);
+    estoque.adicionarQuantidade("Latte", 30);
+    estoque.adicionarQuantidade("Frappe", 20);
+    estoque.adicionarQuantidade("Coado", 25);
+    //estoque.adicionarQuantidade("CafeComLeite", 15);
+    estoque.adicionarQuantidade("Cappuccino", 23);
+    estoque.adicionarQuantidade("Cortado", 20);
+    estoque.adicionarQuantidade("Mocha", 10);
+    //estoque.adicionarQuantidade("Icedcoffee", 10);
+    estoque.adicionarQuantidade("Americano", 20);
 
     System.out.println("--- Liko's Coffee ---");
     System.out.println(" ");
@@ -131,11 +144,11 @@ public static CafeInterface processarEscolha (int opcao){
 
 public static void finalizarPedido() {
     if (carrinho.isEmpty()) {
-        System.out.println("O carrinho está vazio!");
+        System.out.println("O carrinho está vazio :(");
         return;
     }
 
-    System.out.println("\n=== SEU PEDIDO ==="); // Adicionei as barrinhas
+    System.out.println("- Seu pedido -");
 
     Map<String, Integer> quantidadeItens = new HashMap<>();
     Map<String, Double> precoItens = new HashMap<>();
