@@ -5,6 +5,7 @@ import Projeto.Singleton.GerenciarArquivos;
 import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.InputMismatchException;
 
 static Scanner entrada = new Scanner(System.in);
 static List<CafeInterface> carrinho = new ArrayList<>();
@@ -12,28 +13,43 @@ static CafeFactory factory = new CafeFactory();
 
 void main() {
 
-    System.out.println("--- Liko's Coffee ---");
-    System.out.println(" ");
-    System.out.println("Escolha o modo: ");
-    System.out.println("1 - Modo Cliente");
-    System.out.println("2 - Modo Gerente");
+    boolean inicio = true;
 
+    while (inicio) {
+            System.out.println("--- Liko's Coffee ---");
+            System.out.println(" ");
+            System.out.println("Escolha o modo: ");
+            System.out.println("1 - Modo Cliente");
+            System.out.println("2 - Modo Gerente");
+            System.out.println("3 - Sair");
 
-    int modo = entrada.nextInt();
+                try {
+                    int modo = entrada.nextInt();
 
-    if (modo == 1) {
-        executarModoCliente();
-    } else if (modo == 2) {
-        System.out.print("Digite a senha do gerente: ");
-        String senha = entrada.next();
+                    switch (modo) {
+                        case 1 -> executarModoCliente();
+                        case 2 -> {
+                            System.out.print("Senha: ");
+                            String senha = entrada.next();
+                            if (validarSenha(senha)) {
+                                executarModoGerente();
+                            } else {
+                                System.out.println("Senha incorreta!");
+                            }
+                        }
+                        case 3 -> {
+                            System.out.println("Tchau!");
+                            entrada.close();
+                            inicio = false;
+                        }
+                        default -> System.out.println("Opção Inválida!");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Opção Inválida!");
+                    entrada.next();
+                }
 
-        if (validarSenha(senha)) {
-            executarModoGerente();
-        } else {
-            System.out.println("Senha incorreta! Voltando ao menu");
-            main();
-        }
-    }
+            }
 }
 
 public static void executarModoCliente(){
@@ -265,5 +281,5 @@ public static void executarModoGerente() {
 }
 
 public static boolean validarSenha(String senha) {
-    return senha.equals("admin123");
+    return senha.equals("adm123");
 }
