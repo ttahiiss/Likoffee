@@ -3,7 +3,6 @@ package Projeto.Singleton;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import Projeto.Factory.Pedido.CafeInterface;
 import Projeto.Factory.CafeFactory;
@@ -110,34 +109,51 @@ public class GerenciarArquivos {
         }
     }
 
-    public boolean removerCafe(String tipo, boolean confirmar) {
-        if (!estoqueQuantidades.containsKey(tipo)) {
-            System.out.println("\nCafé não encontrado: " + tipo + "\n");
+    public boolean removerQuantidade(String tipo, int quantidadeARemover) {
+        String tipoC = tipo.trim().toLowerCase();
+
+        String chaveEncontrada = null;
+        for (String chave : estoqueQuantidades.keySet()) {
+            if (chave.toLowerCase().equals(tipoC)) {
+                chaveEncontrada = chave;
+                break;
+            }
+        }
+
+        if (chaveEncontrada == null) {
+            System.out.println("Café não encontrado: " + tipo);
+            System.out.println("Cafés disponíveis: " + estoqueQuantidades.keySet());
             return false;
         }
 
-        CafeInterface cafe = cafeFactory.criarCafe(tipo);
-        int quantidade = estoqueQuantidades.get(tipo);
+        int estoqueAtual = estoqueQuantidades.get(chaveEncontrada);
 
-        if (confirmar) {
-            System.out.println("Você estaria removendo: ");
-            System.out.printf("   %s - %s - %d unidades%n",
-                    tipo, cafe.getDescricao(), quantidade);
-            System.out.print("Confirmar remoção? (s/n): ");
-
-            Scanner scanner = new Scanner(System.in);
-            String resposta = scanner.nextLine().trim().toLowerCase();
-
-            if (resposta.equals("s") || resposta.equals("sim")) {
-                System.out.println("Okay, removendo produto");
-            } else {
-                System.out.println("Remoção cancelada");
-                return false;
-            }
+        if (quantidadeARemover <= 0) {
+            estoqueQuantidades.remove(chaveEncontrada);
+            salvarEstoque();
+            System.out.println("\nCafé transferido completamente: " + chaveEncontrada + "\n");
+            return true;
         }
-        estoqueQuantidades.remove(tipo);
+
+        if (estoqueAtual < quantidadeARemover) {
+            System.out.println("\nEstoque insuficiente de " + chaveEncontrada);
+            System.out.println("Estoque atual: " + estoqueAtual + "\n");
+            return false;
+        }
+
+        int novoEstoque = estoqueAtual - quantidadeARemover;
+
+        if (novoEstoque == 0) {
+            estoqueQuantidades.remove(chaveEncontrada);
+            System.out.println("\nTransferidas " + quantidadeARemover + " unidades de " + chaveEncontrada);
+            System.out.println("Acabou o cafêzinho :(\n");
+        } else {
+            estoqueQuantidades.put(chaveEncontrada, novoEstoque);
+            System.out.println("\nTransferidas " + quantidadeARemover + " unidades de " + chaveEncontrada);
+            System.out.println("Estoque restante: " + novoEstoque + " unidades\n");
+        }
+
         salvarEstoque();
-        System.out.println("Café removido: " + tipo);
         return true;
     }
 }
