@@ -37,6 +37,7 @@ void main() {
 }
 
 public static void executarModoCliente(){
+    GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
     boolean finalizarPedido = false;
 
     while (!finalizarPedido) {
@@ -50,37 +51,42 @@ public static void executarModoCliente(){
         System.out.println("O que deseja hoje?: ");
         mostrarCardapio();
 
-        int pedido = entrada.nextInt();
-        CafeInterface cafeEscolhido = processarEscolha(pedido);
+        try {
+            int pedido = entrada.nextInt();
+            CafeInterface cafeEscolhido = processarEscolha(pedido);
 
-        if (cafeEscolhido != null) {
-            System.out.println("Café selecionado: " + cafeEscolhido.getDescricao());
-            System.out.println("Preço: R$" + cafeEscolhido.calcularPreco());
+            if (cafeEscolhido != null) {
+                System.out.println("Café selecionado: " + cafeEscolhido.getDescricao());
+                System.out.println("Preço: R$" + cafeEscolhido.calcularPreco());
 
-            System.out.print("Adicionar ao carrinho? (1-Sim / 2-Não): ");
-            int resposta = entrada.nextInt();
+                System.out.print("Adicionar ao carrinho? (1-Sim / 2-Não): ");
+                int resposta = entrada.nextInt();
 
-            if (resposta == 1) {
-                carrinho.add(cafeEscolhido);
-                System.out.println("Adicionado ao carrinho!");
+                if (resposta == 1) {
+                    carrinho.add(cafeEscolhido);
+                    System.out.println("Adicionado ao carrinho!");
 
-                System.out.println("\nO que deseja fazer?");
-                System.out.println("1- Adicionar mais itens");
-                System.out.println("2- Ver carrinho");
-                System.out.println("3- Finalizar pedido");
-                System.out.print("Escolha uma opção: ");
-                int opcao = entrada.nextInt();
+                    System.out.println("\nO que deseja fazer?");
+                    System.out.println("1- Adicionar mais itens");
+                    System.out.println("2- Ver carrinho");
+                    System.out.println("3- Finalizar pedido");
+                    System.out.print("Escolha uma opção: ");
+                    int opcao = entrada.nextInt();
 
-                if (opcao == 2) {
-                    mostrarCarrinho();
-                }
-                if (opcao == 3) {
-                    finalizarPedido = true;
-                } else {
-                    System.out.println("\nOpção invalida");
-                    executarModoCliente();
+                    if (opcao == 2) {
+                        mostrarCarrinho();
+                    }
+                    if (opcao == 3) {
+                        finalizarPedido = true;
+                    } else {
+                        System.out.println("\nOpção invalida");
+                        executarModoCliente();
+                    }
                 }
             }
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Opção invalida");
+            entrada.nextLine();
         }
     }
     System.out.println("Pedido finalizado!");
@@ -228,15 +234,27 @@ public static void executarModoGerente() {
                 break;
 
             case 3:
-                entrada.nextLine();
-                System.out.print("Digite o tipo do café a remover: ");
-                String tipoRemover = entrada.nextLine();
-                estoque.removerCafe(tipoRemover, true);
-                break;
+                try {
+                    System.out.print("Digite a quantidade a remover (0 para remover café): ");
+                    int qtdRemover = entrada.nextInt();
+                    entrada.nextLine();
+
+                    System.out.print("Digite o tipo do café: ");
+                    String tipoRemover = entrada.nextLine();
+
+                    boolean sucesso = estoque.removerQuantidade(tipoRemover, qtdRemover);
+                    if (sucesso) {
+                        System.out.println("Operação realizada com sucesso!");
+                    }
+                    break;
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Erro:0137 não é um número válido!");
+                    executarModoGerente();
+                }
 
             case 4:
                 estoque.salvarEstoque();
-                System.out.println("Saindo do sistema...");
+                System.out.println("Saindo do sistema");
                 scanner.close();
                 return;
 
