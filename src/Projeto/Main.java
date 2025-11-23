@@ -1,14 +1,22 @@
 
+/* - acrescentar método no singleton para registrar as vendas
+   - colocar um if e else dentro do if da linha 136 pra validar o salvamento do arquivo ou não
+   - colocar os \n bonitinho na parte do gerente
+   - ver aql negócio q tá adicionando mum café diferente quando a letra é minuscula
+   - testar tudo
+
+ */
+
+import Projeto.Decorator.Acucar;
+import Projeto.Decorator.Bolachinha;
+import Projeto.Decorator.Canela;
+import Projeto.Decorator.Chantilly;
 import Projeto.Factory.CafeFactory;
 import Projeto.Factory.Pedido.CafeInterface;
 import Projeto.Singleton.GerenciarArquivos;
-import java.util.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.InputMismatchException;
 
 static Scanner entrada = new Scanner(System.in);
-static List<CafeInterface> carrinho = new ArrayList<>();
 static CafeFactory factory = new CafeFactory();
 
 void main() {
@@ -16,10 +24,9 @@ void main() {
     boolean inicio = true;
 
     while (inicio) {
-            System.out.println("--- Liko's Coffee ---");
-            System.out.println(" ");
-            System.out.println("Escolha o modo: ");
-            System.out.println("1 - Modo Cliente");
+            System.out.println("\n--- Liko's Coffee ---");
+            System.out.println("\nEscolha o modo: ");
+            System.out.println("\n1 - Modo Cliente");
             System.out.println("2 - Modo Gerente");
             System.out.println("3 - Sair");
 
@@ -27,25 +34,28 @@ void main() {
                     int modo = entrada.nextInt();
 
                     switch (modo) {
-                        case 1 -> executarModoCliente();
-                        case 2 -> {
-                            System.out.print("Senha: ");
+                        case 1 : executarModoCliente();
+                        break;
+                        case 2 : {
+                            System.out.print("\nSenha: ");
                             String senha = entrada.next();
                             if (validarSenha(senha)) {
                                 executarModoGerente();
                             } else {
-                                System.out.println("Senha incorreta!");
+                                System.out.println("\nSenha incorreta!");
                             }
+                            break;
                         }
-                        case 3 -> {
-                            System.out.println("Tchau!");
+                        case 3 : {
+                            System.out.println("\nTchau tchau!");
                             entrada.close();
                             inicio = false;
+                            break;
                         }
-                        default -> System.out.println("Opção Inválida!");
+                        default : System.out.println("\nOpção Inválida!");
                     }
                 } catch (InputMismatchException e) {
-                    System.out.println("Opção Inválida!");
+                    System.out.println("\nOpção Inválida!");
                     entrada.next();
                 }
 
@@ -53,18 +63,16 @@ void main() {
 }
 
 public static void executarModoCliente(){
-    GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
+    GerenciarArquivos estoque = GerenciarArquivos.getInstancia(); // vai usar pra salvar no singleton né?
+
     boolean finalizarPedido = false;
 
     while (!finalizarPedido) {
 
-        System.out.println(" ");
-        System.out.println("--- Liko's Coffe ---");
-        System.out.println(" ");
-        System.out.println("Seja bem vindo! ><");
+        System.out.println("\n--- Liko's Coffe ---");
+        System.out.println("\nSeja bem vindo! ><");
         System.out.println("Aqui você vai encontrar os melhores cafés da região.");
-        System.out.println(" ");
-        System.out.println("O que deseja hoje?: ");
+        System.out.println("\nO que deseja hoje?: ");
         mostrarCardapio();
 
         try {
@@ -72,55 +80,104 @@ public static void executarModoCliente(){
             CafeInterface cafeEscolhido = processarEscolha(pedido);
 
             if (cafeEscolhido != null) {
-                System.out.println("Café selecionado: " + cafeEscolhido.getDescricao());
-                System.out.println("Preço: R$" + cafeEscolhido.calcularPreco());
 
-                System.out.print("Adicionar ao carrinho? (1-Sim / 2-Não): ");
+                System.out.println(cafeEscolhido);
+                System.out.println("\nDeseja adicionar algo?");
+
+                boolean adicionando = true;
+                while (adicionando) {
+                    System.out.println("\n1 - Açúcar + por conta da casa ;) ");
+                    System.out.println("2 - Bolachinhas + R$:1,50");
+                    System.out.println("3 - Canela + R$: 0,25");
+                    System.out.println("4 - Chantilly + R$: 1,50");
+                    System.out.println("0 - Finalizar adicionais");
+                    System.out.print("\nEscolha: ");
+
+                    int adicional = entrada.nextInt();
+
+                    switch (adicional) {
+                        case 1:
+                            cafeEscolhido = new Acucar(cafeEscolhido);
+                            System.out.println("\n✓ Açúcar adicionado!");
+                            System.out.println("\nTotal parcial: R$ " + cafeEscolhido.calcularPreco());
+                            break;
+                        case 2:
+                            cafeEscolhido = new Bolachinha(cafeEscolhido);
+                            System.out.println("\n✓ Bolachinhas adicionadas!");
+                            System.out.println("\nTotal parcial: R$ " + cafeEscolhido.calcularPreco());
+                            break;
+                        case 3:
+                            cafeEscolhido = new Canela(cafeEscolhido);
+                            System.out.println("\n✓ Canela adicionada!");
+                            System.out.println("\nTotal parcial: R$ " + cafeEscolhido.calcularPreco());
+                            break;
+                        case 4:
+                            cafeEscolhido = new Chantilly(cafeEscolhido);
+                            System.out.println("\n✓ Chantilly adicionado!");
+                            System.out.println("\nTotal parcial: R$ " + cafeEscolhido.calcularPreco());
+                            break;
+                        case 0:
+                            adicionando = false;
+                            System.out.println("\nFinalizando adicionais...");
+                            break;
+                        default:
+                            System.out.println("\nOpção inválida!");
+                    }
+                }
+
+                System.out.println("\nTotal: R$ " + cafeEscolhido.calcularPreco());
+
+                System.out.println("\n1- Finalizar pedido");
+                System.out.println("2 - sair");
+
                 int resposta = entrada.nextInt();
 
                 if (resposta == 1) {
-                    carrinho.add(cafeEscolhido);
-                    System.out.println("Adicionado ao carrinho!");
+                    System.out.println("beleza");// ajeitar isso quando fizer o método
 
-                    System.out.println("\nO que deseja fazer?");
-                    System.out.println("1- Adicionar mais itens");
-                    System.out.println("2- Ver carrinho");
-                    System.out.println("3- Finalizar pedido");
-                    System.out.print("Escolha uma opção: ");
-                    int opcao = entrada.nextInt();
-
-                    if (opcao == 2) {
-                        mostrarCarrinho();
-                    }
-                    if (opcao == 3) {
-                        finalizarPedido = true;
-                    } else {
-                        System.out.println("\nOpção invalida");
-                        executarModoCliente();
-                    }
+                }else if (resposta == 2){
+                    System.out.println("\nVoltando pro menu...");
+                    return;
                 }
             }
         } catch (java.util.InputMismatchException e) {
-            System.out.println("Opção invalida");
+            System.out.println("\nOpção invalida");
             entrada.nextLine();
         }
     }
-    System.out.println("Pedido finalizado!");
-    finalizarPedido();
 }
 public static void mostrarCardapio() {
-    System.out.println(" ");
-    System.out.println("Tradicionais -         Especiais -           Cafés gelados -");
-    System.out.println("1- Expresso            4- Cappuccino         7- Iced coffee");
-    System.out.println("2- Café coado          5- Latte              8- Frappé");
-    System.out.println("3- Café com leite      6- Mocha              9- Sair");
-    System.out.println(" ");
-    System.out.print("Escolha o número do café: ");
+    CafeFactory factory = new CafeFactory();
+
+    System.out.println("\nTradicionais -                       Especiais -                         Cafés gelados -");
+    System.out.println(
+            "\n1- Expresso " + formatarCafe(factory.criarCafe("expresso"))   + "            " +
+                    "4- Cappuccino " + formatarCafe(factory.criarCafe("cappuccino")) + "         " +
+                    "7- Iced Coffee " + formatarCafe(factory.criarCafe("iced coffee"))
+    );
+
+    System.out.println(
+            "2- Café coado " + formatarCafe(factory.criarCafe("coado"))      + "          " +
+                    "5- Latte " + formatarCafe(factory.criarCafe("latte"))      + "              " +
+                    "8- Frappé " + formatarCafe(factory.criarCafe("frappe"))
+    );
+
+    System.out.println(
+            "3- Café com Leite " + formatarCafe(factory.criarCafe("com leite"))  + "      " +
+                    "6- Mocha " + formatarCafe(factory.criarCafe("mocha"))      + "              " +
+                    "9- Sair "
+    );
+
+    System.out.print("\nEscolha o número do café: ");
+}
+
+private static String formatarCafe(CafeInterface cafe) {
+    return String.format("%-2s R$ %.2f", cafe.getDescricao(), cafe.calcularPreco());
 }
 
 public static CafeInterface processarEscolha (int opcao){
-    Scanner scanner = new Scanner(System.in);
     GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
+
     switch (opcao) {
         case 1:
             return factory.criarCafe("expresso");
@@ -139,87 +196,20 @@ public static CafeInterface processarEscolha (int opcao){
         case 8:
             return factory.criarCafe("frappe");
         case 9:
-            System.out.println("Salvando o estoque");
-            System.out.println("Saindo, volte sempre! :D");
+            System.out.print("\nVolte sempre! :D");
+            System.out.println("\nSaindo...");
             estoque.salvarEstoque();
-            scanner.close();
+            entrada.close();
             System.exit(0);
         default:
-            System.out.println("Opção inválida!");
+            System.out.println("\nOpção inválida!");
             return null;
     }
 }
 
-public static void finalizarPedido() {
-    if (carrinho.isEmpty()) {
-        System.out.println("O carrinho está vazio :(");
-        return;
-    }
-
-    System.out.println("- Seu pedido -");
-
-    Map<String, Integer> quantidadeItens = new HashMap<>();
-    Map<String, Double> precoItens = new HashMap<>();
-
-    for (CafeInterface cafeInterface : carrinho) {
-        String descricao = cafeInterface.getDescricao();
-        quantidadeItens.put(descricao, quantidadeItens.getOrDefault(descricao, 0) + 1);
-        precoItens.put(descricao, cafeInterface.calcularPreco());
-    }
-
-    double total = 0;
-    for (Map.Entry<String, Integer> entry : quantidadeItens.entrySet()) {
-        String descricao = entry.getKey();
-        int quantidade = entry.getValue();
-        double precoUnitario = precoItens.get(descricao);
-        double subtotal = quantidade * precoUnitario;
-        total += subtotal;
-
-        System.out.printf("%d x %s\n", quantidade, descricao);
-        System.out.printf("  R$ %.2f cada → R$ %.2f\n", precoUnitario, subtotal);
-    }
-
-    System.out.println("==================");
-    System.out.printf("TOTAL: R$ %.2f\n", total);
-    System.out.println("==================");
-    System.out.println("Obrigado pela preferência!");
-}
-
-public static void mostrarCarrinho() {
-    if (carrinho.isEmpty()) {
-        System.out.println("\nSeu carrinho está vazio!");
-        return;
-    }
-
-    System.out.println("\n=== SEU CARRINHO ===");
-
-    Map<String, Integer> quantidadeItens = new HashMap<>();
-    Map<String, Double> precoItens = new HashMap<>();
-
-    for (CafeInterface cafeInterface : carrinho) {
-        String descricao = cafeInterface.getDescricao();
-        quantidadeItens.put(descricao, quantidadeItens.getOrDefault(descricao, 0) + 1);
-        precoItens.put(descricao, cafeInterface.calcularPreco());
-    }
-
-    double total = 0;
-    for (Map.Entry<String, Integer> entry : quantidadeItens.entrySet()) {
-        String descricao = entry.getKey();
-        int quantidade = entry.getValue();
-        double precoUnitario = precoItens.get(descricao);
-        double subtotal = quantidade * precoUnitario;
-        total += subtotal;
-
-        System.out.printf("%d x %s → R$ %.2f\n", quantidade, descricao, subtotal);
-    }
-
-    System.out.printf("Total parcial: R$ %.2f\n", total);
-    System.out.println("====================");
-}
-
 public static void executarModoGerente() {
     GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in); //n precisa desse scanner, já tem um no inicio do código, "entrada"
 
     System.out.println("--- Liko's Coffe --- Modo Gerente ---");
     System.out.println(" ");
@@ -241,7 +231,7 @@ public static void executarModoGerente() {
 
             case 2:
                 System.out.print("==Opções==\n");
-                System.out.println("Americano | Cafe com Leite | Cappuccino | \nCoado | Cortado | Expresso | \nFrappe | IcedCoffee | Latte | \nou Mocha");
+                System.out.println(" Cafe com Leite | Cappuccino | \nCoado | Cortado | Expresso | \nFrappe | IcedCoffee | Latte | \nou Mocha");
                 System.out.print("Digite o tipo do café: \n");
                 String tipoAdd = scanner.nextLine();
                 System.out.print("Digite a quantidade a adicionar: ");

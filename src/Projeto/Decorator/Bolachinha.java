@@ -1,7 +1,9 @@
 package Projeto.Decorator;
+
 import Projeto.Factory.Pedido.CafeInterface;
 
 public class Bolachinha extends CafeAbstract {
+
     public Bolachinha(CafeInterface cafe) {
         super(cafe);
     }

@@ -2,8 +2,7 @@ package Projeto.Decorator;
 
 import Projeto.Factory.Pedido.CafeInterface;
 
-public class Canela extends CafeAbstract{
-    protected CafeInterface cafeDecorado;
+public class Canela extends CafeAbstract {
 
     public Canela(CafeInterface cafe) {
         super(cafe);
@@ -16,6 +15,6 @@ public class Canela extends CafeAbstract{
 
     @Override
     public double calcularPreco() {
-        return super.calcularPreco() + 0.10;
+        return cafeDecorado.calcularPreco() + 0.25;
     }
 }

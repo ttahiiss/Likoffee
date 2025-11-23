@@ -2,8 +2,7 @@ package Projeto.Decorator;
 
 import Projeto.Factory.Pedido.CafeInterface;
 
-public class Acucar extends CafeAbstract{
-    protected CafeInterface cafeDecorado;
+public class Acucar extends CafeAbstract {
 
     public Acucar(CafeInterface cafe) {
         super(cafe);
@@ -11,7 +10,7 @@ public class Acucar extends CafeAbstract{
 
     @Override
     public String getDescricao() {
-        return cafeDecorado.getDescricao() + "+ Açucar";
+        return cafeDecorado.getDescricao() + " + Açucar";
     }
 
     @Override
