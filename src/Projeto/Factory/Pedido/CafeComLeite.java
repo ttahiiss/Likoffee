@@ -3,7 +3,7 @@ package Projeto.Factory.Pedido;
 public class CafeComLeite implements CafeInterface {
 
     @Override
-    public String getDescricaoBase() {
+    public String getTipo() {
         return "Cafe com Leite";
     }
 

@@ -1,7 +1,8 @@
 package Projeto.Factory.Pedido;
 
 public interface CafeInterface {
+
+    String getTipo();
     String getDescricao();
-    String getDescricaoBase();
     double calcularPreco();
 }

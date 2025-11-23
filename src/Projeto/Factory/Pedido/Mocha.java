@@ -3,7 +3,7 @@ package Projeto.Factory.Pedido;
 public class Mocha implements CafeInterface {
 
     @Override
-    public String getDescricaoBase() {
+    public String getTipo() {
         return "Mocha";
     }
 

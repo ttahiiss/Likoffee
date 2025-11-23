@@ -4,7 +4,7 @@ package Projeto.Factory.Pedido;
 public class Frappe implements CafeInterface {
 
     @Override
-    public String getDescricaoBase() {
+    public String getTipo() {
         return "Frappe";
     }
 

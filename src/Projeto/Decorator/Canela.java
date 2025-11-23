@@ -5,8 +5,8 @@ import Projeto.Factory.Pedido.CafeInterface;
 public class Canela extends CafeAbstract {
 
     @Override
-    public String getDescricaoBase() {
-        return cafeDecorado.getDescricaoBase();
+    public String getTipo() {
+        return cafeDecorado.getTipo();
     }
 
     public Canela(CafeInterface cafe) {

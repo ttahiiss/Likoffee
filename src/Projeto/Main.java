@@ -126,9 +126,9 @@ public static void executarModoCliente(){
 
                 if (resposta == 1) {
                         double precoFinal = cafeEscolhido.calcularPreco();
-                        boolean removido = estoque.removerQuantidade(cafeEscolhido.getDescricaoBase(), 1);
+                        boolean removido = estoque.removerQuantidade(cafeEscolhido.getTipo(), 1);
                         if (removido) {
-                            estoque.registrarCompra(cafeEscolhido.getDescricaoBase(), precoFinal);
+                            estoque.registrarCompra(cafeEscolhido.getTipo(), precoFinal);
                             System.out.println("\nPedido finalizado");
                         } else {
                             System.out.println("\nErro ao finalizar pedido");
