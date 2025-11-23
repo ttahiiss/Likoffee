@@ -4,7 +4,7 @@ public class IcedCoffee implements CafeInterface {
 
     @Override
     public String getTipo() {
-        return "IcedCoffee";
+        return "iced coffee";
     }
 
     @Override

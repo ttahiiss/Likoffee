@@ -4,7 +4,7 @@ public class CafeComLeite implements CafeInterface {
 
     @Override
     public String getTipo() {
-        return "Cafe com Leite";
+        return "cafe com leite";
     }
 
     @Override

@@ -185,7 +185,7 @@ public static CafeInterface processarEscolha (int opcao){
         case 2:
             return factory.criarCafe("coado");
         case 3:
-            return factory.criarCafe("com leite");
+            return factory.criarCafe("cafe com leite");
         case 4:
             return factory.criarCafe("cappuccino");
         case 5:
@@ -210,7 +210,6 @@ public static CafeInterface processarEscolha (int opcao){
 
 public static void executarModoGerente() {
     GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
-    Scanner scanner = new Scanner(System.in); //n precisa desse scanner, já tem um no inicio do código, "entrada"
 
     System.out.println("\n--- Liko's Coffe --- Modo Gerente ---");
 
@@ -222,8 +221,8 @@ public static void executarModoGerente() {
         System.out.println("5. Sair");
         System.out.print("Escolha uma opção: ");
 
-        int opcao = scanner.nextInt();
-        scanner.nextLine();
+        int opcao = entrada.nextInt();
+        entrada.nextLine();
 
         switch (opcao) {
             case 1:
@@ -232,11 +231,11 @@ public static void executarModoGerente() {
 
             case 2:
                 System.out.print("\n==Opções==");
-                System.out.println("\nCafe com Leite | Cappuccino | \nCoado | Cortado | Expresso | \nFrappe | IcedCoffee | Latte | \nou Mocha");
+                System.out.println("\nCafe com Leite | Cappuccino | \nCoado | Cortado | Expresso | \nFrappe | Iced Coffee | Latte | \nou Mocha");
                 System.out.print("\nDigite o tipo do café: ");
-                String tipoAdd = scanner.nextLine();
+                String tipoAdd = entrada.nextLine().trim().toLowerCase();
                 System.out.print("\nDigite a quantidade a adicionar: ");
-                int qtdAdd = scanner.nextInt();
+                int qtdAdd = entrada.nextInt();
                 estoque.adicionarQuantidade(tipoAdd, qtdAdd);
                 break;
 
@@ -254,7 +253,7 @@ public static void executarModoGerente() {
                         System.out.println("\nOperação realizada com sucesso!");
                     }
                     break;
-                } catch (java.util.InputMismatchException e) {
+                } catch (InputMismatchException e) {
                     System.out.println("Erro:0137 não é um número válido!");
                     executarModoGerente();
                 }
