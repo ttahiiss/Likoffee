@@ -79,15 +79,17 @@ public class GerenciarArquivos {
     }
 
     public void adicionarQuantidade(String tipo, int quantidade) {
+        String tipoNormalizado = tipo.trim().toLowerCase();
+
         try {
-            cafeFactory.criarCafe(tipo);
+            cafeFactory.criarCafe(tipoNormalizado);
         } catch (IllegalArgumentException e) {
-            System.out.println("Café '" + tipo + "' não existe no sistema!");
+            System.out.println("Café '" + tipo + "' não existe no sistema");
             return;
         }
 
-        int atual = estoqueQuantidades.getOrDefault(tipo, 0);
-        estoqueQuantidades.put(tipo, atual + quantidade);
+        int atual = estoqueQuantidades.getOrDefault(tipoNormalizado, 0);
+        estoqueQuantidades.put(tipoNormalizado, atual + quantidade);
         salvarEstoque();
         System.out.println("Café adicionado no estoque :)");
     }
@@ -96,7 +98,7 @@ public class GerenciarArquivos {
         if (estoqueQuantidades.isEmpty()) {
             System.out.println("\n==O estoque esta vazio, sinto muito==\n");
         }else {
-            System.out.println("=== ESTOQUE COMPLETO DE CAFÉS ===");
+            System.out.println("\n=== ESTOQUE COMPLETO DE CAFÉS ===");
             for (String tipo : estoqueQuantidades.keySet()) {
                 CafeInterface cafeInterface = cafeFactory.criarCafe(tipo);
                 int quantidade = estoqueQuantidades.get(tipo);
@@ -155,5 +157,47 @@ public class GerenciarArquivos {
 
         salvarEstoque();
         return true;
+    }
+
+    public void registrarCompra(String tipo, double preco) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("historico.txt", true))) {
+            String linha = tipo + "|" + preco;
+            bw.write(linha);
+            bw.newLine();
+        } catch (IOException e) {
+            System.out.println("Erro ao registrar compra: " + e.getMessage());
+        }
+    }
+
+    public void verHistorico() {
+        File arquivo = new File("historico.txt");
+
+        if (!arquivo.exists()) {
+            System.out.println("Nenhuma compra registrada ainda.");
+            return;
+        }
+
+        System.out.println("\n=== HISTÓRICO DE COMPRAS ===");
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            double total = 0;
+            int count = 0;
+
+            while ((linha = br.readLine()) != null) {
+                String[] partes = linha.split("\\|");
+                if (partes.length == 2) {
+                    count++;
+                    double preco = Double.parseDouble(partes[1]);
+                    total += preco;
+                    System.out.println(count + ". " + partes[0] + " | R$" + partes[1]);
+                }
+            }
+
+            System.out.println("----------------------------");
+            System.out.printf("Total: R$%.2f (%d vendas)%n", total, count);
+
+        } catch (IOException e) {
+            System.out.println("Erro ao ler histórico: " + e.getMessage());
+        }
     }
 }
