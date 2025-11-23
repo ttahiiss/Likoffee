@@ -1,12 +1,4 @@
 
-/* - acrescentar método no singleton para registrar as vendas
-   - colocar um if e else dentro do if da linha 136 pra validar o salvamento do arquivo ou não
-   - colocar os \n bonitinho na parte do gerente
-   - ver aql negócio q tá adicionando mum café diferente quando a letra é minuscula
-   - testar tudo
-
- */
-
 import Projeto.Decorator.Acucar;
 import Projeto.Decorator.Bolachinha;
 import Projeto.Decorator.Canela;
@@ -133,7 +125,14 @@ public static void executarModoCliente(){
                 int resposta = entrada.nextInt();
 
                 if (resposta == 1) {
-                    System.out.println("beleza");// ajeitar isso quando fizer o método
+                        double precoFinal = cafeEscolhido.calcularPreco();
+                        boolean removido = estoque.removerQuantidade(cafeEscolhido.getDescricaoBase(), 1);
+                        if (removido) {
+                            estoque.registrarCompra(cafeEscolhido.getDescricaoBase(), precoFinal);
+                            System.out.println("\nPedido finalizado");
+                        } else {
+                            System.out.println("\nErro ao finalizar pedido");
+                            }
 
                 }else if (resposta == 2){
                     System.out.println("\nVoltando pro menu...");
@@ -211,14 +210,14 @@ public static void executarModoGerente() {
     GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
     Scanner scanner = new Scanner(System.in); //n precisa desse scanner, já tem um no inicio do código, "entrada"
 
-    System.out.println("--- Liko's Coffe --- Modo Gerente ---");
-    System.out.println(" ");
+    System.out.println("\n--- Liko's Coffe --- Modo Gerente ---");
 
     while (true) {
-        System.out.println("1. Listar estoque completo");
+        System.out.println("\n1. Listar estoque completo");
         System.out.println("2. Adicionar quantidade");
         System.out.println("3. Remover item do estoque");
-        System.out.println("4. Sair");
+        System.out.println("4. Mostrar histórico de vendas");
+        System.out.println("5. Sair");
         System.out.print("Escolha uma opção: ");
 
         int opcao = scanner.nextInt();
@@ -230,27 +229,27 @@ public static void executarModoGerente() {
                 break;
 
             case 2:
-                System.out.print("==Opções==\n");
-                System.out.println(" Cafe com Leite | Cappuccino | \nCoado | Cortado | Expresso | \nFrappe | IcedCoffee | Latte | \nou Mocha");
-                System.out.print("Digite o tipo do café: \n");
+                System.out.print("\n==Opções==");
+                System.out.println("\nCafe com Leite | Cappuccino | \nCoado | Cortado | Expresso | \nFrappe | IcedCoffee | Latte | \nou Mocha");
+                System.out.print("\nDigite o tipo do café: ");
                 String tipoAdd = scanner.nextLine();
-                System.out.print("Digite a quantidade a adicionar: ");
+                System.out.print("\nDigite a quantidade a adicionar: ");
                 int qtdAdd = scanner.nextInt();
                 estoque.adicionarQuantidade(tipoAdd, qtdAdd);
                 break;
 
             case 3:
                 try {
-                    System.out.print("Digite a quantidade a remover (0 para remover café): ");
+                    System.out.print("\nDigite a quantidade a remover (0 para remover café): ");
                     int qtdRemover = entrada.nextInt();
                     entrada.nextLine();
 
-                    System.out.print("Digite o tipo do café: ");
+                    System.out.print("\nDigite o tipo do café: ");
                     String tipoRemover = entrada.nextLine();
 
                     boolean sucesso = estoque.removerQuantidade(tipoRemover, qtdRemover);
                     if (sucesso) {
-                        System.out.println("Operação realizada com sucesso!");
+                        System.out.println("\nOperação realizada com sucesso!");
                     }
                     break;
                 } catch (java.util.InputMismatchException e) {
@@ -259,13 +258,16 @@ public static void executarModoGerente() {
                 }
 
             case 4:
+                estoque.verHistorico();
+                executarModoGerente();
+
+            case 5:
                 estoque.salvarEstoque();
-                System.out.println("Saindo do sistema");
-                scanner.close();
+                System.out.println("\nSaindo do sistema");
                 return;
 
             default:
-                System.out.println("Opção inválida!");
+                System.out.println("\nOpção inválida!");
         }
     }
 }
