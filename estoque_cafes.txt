@@ -1,1 +1,7 @@
+Coado|3,80|25
+Frappe|12,90|20
 expresso|4,50|50
+Mocha|8,50|10
+Latte|7,20|30
+Expresso|4,50|102
+Cappuccino|6,80|28
