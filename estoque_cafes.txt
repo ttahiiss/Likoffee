@@ -1,5 +1,1 @@
 frappe|12,90|20
-coado|3,80|25
-cappuccino|6,80|58
-mocha|8,50|10
-latte|7,20|30
