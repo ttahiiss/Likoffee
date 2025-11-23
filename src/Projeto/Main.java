@@ -73,7 +73,9 @@ public static void executarModoCliente(){
 
             if (cafeEscolhido != null) {
 
-                System.out.println(cafeEscolhido);
+                System.out.println("\nCafé selecionado: " + cafeEscolhido.getTipo());
+                System.out.println("\nTotal parcial: R$ " + cafeEscolhido.calcularPreco());
+
                 System.out.println("\nDeseja adicionar algo?");
 
                 boolean adicionando = true;
