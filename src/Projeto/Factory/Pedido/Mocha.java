@@ -3,7 +3,7 @@ package Projeto.Factory.Pedido;
 public class Mocha implements CafeInterface {
     @Override
     public String getDescricao() {
-        return "Combinação indulgente de expresso, chocolate e leite vaporizado. Coberto com chantilly.";
+        return "350ml";
     }
 
     @Override

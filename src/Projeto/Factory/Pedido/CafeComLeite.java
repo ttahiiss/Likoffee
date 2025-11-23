@@ -1,9 +1,10 @@
 package Projeto.Factory.Pedido;
 
 public class CafeComLeite implements CafeInterface {
+
     @Override
     public String getDescricao() {
-        return "Blend perfeito entre café coado e leite vaporizado. Equilíbrio entre sabor e cremosidade.";
+        return "250ml";
     }
 
     @Override

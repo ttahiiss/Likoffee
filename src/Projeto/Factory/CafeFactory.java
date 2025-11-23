@@ -12,7 +12,6 @@ import Projeto.Factory.Pedido.Frappe;
 
 public class CafeFactory {
 
-    // ⭐ CORRIJA O RETORNO: CafeFactory → Cafe
     public CafeInterface criarCafe(String tipo) {
         switch (tipo.toLowerCase()) {
             case "expresso":
