@@ -4,6 +4,11 @@ import Projeto.Factory.Pedido.CafeInterface;
 
 public class Acucar extends CafeAbstract {
 
+    @Override
+    public String getDescricaoBase() {
+        return cafeDecorado.getDescricaoBase();
+    }
+
     public Acucar(CafeInterface cafe) {
         super(cafe);
     }

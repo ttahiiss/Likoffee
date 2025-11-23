@@ -3,6 +3,11 @@ package Projeto.Factory.Pedido;
 public class IcedCoffee implements CafeInterface {
 
     @Override
+    public String getDescricaoBase() {
+        return "IcedCoffee";
+    }
+
+    @Override
     public String getDescricao() {
         return "400ml";
     }

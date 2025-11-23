@@ -4,6 +4,11 @@ import Projeto.Factory.Pedido.CafeInterface;
 
 public class Chantilly extends CafeAbstract {
 
+    @Override
+    public String getDescricaoBase() {
+        return cafeDecorado.getDescricaoBase();
+    }
+
     public Chantilly(CafeInterface cafe) {
         super(cafe);
     }
