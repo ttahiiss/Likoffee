@@ -5,3 +5,4 @@ Coado|3.8
 Cappuccino|6.8
 Coado|3.8
 Frappe|12.9
+iced coffee|9.8

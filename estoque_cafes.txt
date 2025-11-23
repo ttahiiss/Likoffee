@@ -1,1 +1,3 @@
 frappe|12,90|20
+expresso|4,50|12
+iced coffee|9,80|49
