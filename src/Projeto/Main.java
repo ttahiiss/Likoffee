@@ -164,7 +164,7 @@ public static void mostrarCardapio() {
     );
 
     System.out.println(
-            "3- Café com Leite " + formatarCafe(factory.criarCafe("com leite"))  + "      " +
+            "3- Café com Leite " + formatarCafe(factory.criarCafe("cafe com leite"))  + "      " +
                     "6- Mocha " + formatarCafe(factory.criarCafe("mocha"))      + "              " +
                     "9- Sair "
     );

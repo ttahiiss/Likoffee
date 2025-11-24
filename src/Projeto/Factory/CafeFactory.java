@@ -18,7 +18,7 @@ public class CafeFactory {
                 return new Expresso();
             case "coado":
                 return new Coado();
-            case "com leite":
+            case "cafe com leite":
                 return new CafeComLeite();
             case "cappuccino":
                 return new Cappuccino();
