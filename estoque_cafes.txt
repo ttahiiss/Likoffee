@@ -1,3 +1,4 @@
 frappe|12,90|20
+cafe com leite|5,20|12
 expresso|4,50|12
-iced coffee|9,80|49
+iced coffee|9,80|48
