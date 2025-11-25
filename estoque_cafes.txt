@@ -1,9 +1,0 @@
-Coado|3,80|0
-Cortado|7,20|0
-cafe com leite|5,20|0
-Frappe|12,90|0
-Mocha|8,50|0
-Latte|7,20|0
-Expresso|4,50|0
-Cappuccino|6,80|0
-iced coffee|9,80|0

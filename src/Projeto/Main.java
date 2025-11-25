@@ -249,7 +249,7 @@ public static void executarModoGerente() {
 
             case 3:
                 try {
-                    System.out.print("\nDigite a quantidade a remover (0 para remover café): ");
+                    System.out.print("\nDigite a quantidade a remover: ");
                     int qtdRemover = entrada.nextInt();
                     entrada.nextLine();
 

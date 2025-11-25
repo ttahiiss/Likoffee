@@ -22,8 +22,6 @@ public class CafeFactory {
                 return new IcedCoffee();
             case "frappe":
                 return new Frappe();
-            case "cortado":
-                return new Cortado();
             default:
                 throw new IllegalArgumentException("Tipo de café não disponível: " + tipo);
         }
