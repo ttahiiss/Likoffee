@@ -9,7 +9,7 @@ import Projeto.Factory.CafeFactory;
 
 public class GerenciarArquivos {
     private static GerenciarArquivos instancia;
-    private Map<String, Integer> estoqueQuantidades; //so armazena quantidades
+    private Map<String, Integer> estoqueQuantidades;
     private final String caminho = "estoque_cafes.txt";
     private CafeFactory cafeFactory;
 
@@ -27,7 +27,6 @@ public class GerenciarArquivos {
         return instancia;
     }
 
-    //confere se o estoque existe e cria um caso n
     public void carregarEstoque() {
         File arquivo = new File(caminho);
         if (!arquivo.exists()) {
@@ -164,6 +163,7 @@ public class GerenciarArquivos {
             String linha = tipo + "|" + preco;
             bw.write(linha);
             bw.newLine();
+            salvarEstoque();
         } catch (IOException e) {
             System.out.println("Erro ao registrar compra: " + e.getMessage());
         }
