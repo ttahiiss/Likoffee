@@ -7,6 +7,7 @@ import Projeto.Factory.CafeFactory;
 import Projeto.Factory.Pedido.CafeInterface;
 import Projeto.Singleton.GerenciarArquivos;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 static Scanner entrada = new Scanner(System.in);
 static CafeFactory factory = new CafeFactory();
@@ -55,7 +56,7 @@ void main() {
 }
 
 public static void executarModoCliente(){
-    GerenciarArquivos estoque = GerenciarArquivos.getInstancia(); // vai usar pra salvar no singleton né?
+    GerenciarArquivos estoque = GerenciarArquivos.getInstancia();
 
     boolean finalizarPedido = false;
 
@@ -69,6 +70,10 @@ public static void executarModoCliente(){
 
         try {
             int pedido = entrada.nextInt();
+            if (pedido == 9) {
+                System.out.println("\nVoltando ao menu principal...");
+                return;
+            }
             CafeInterface cafeEscolhido = processarEscolha(pedido);
 
             if (cafeEscolhido != null) {
@@ -132,8 +137,10 @@ public static void executarModoCliente(){
                         if (removido) {
                             estoque.registrarCompra(cafeEscolhido.getTipo(), precoFinal);
                             System.out.println("\nPedido finalizado");
+                            finalizarPedido = true;
                         } else {
                             System.out.println("\nErro ao finalizar pedido");
+                            return;
                             }
 
                 }else if (resposta == 2){
@@ -202,6 +209,7 @@ public static CafeInterface processarEscolha (int opcao){
             estoque.salvarEstoque();
             entrada.close();
             System.exit(0);
+            return null;
         default:
             System.out.println("\nOpção inválida!");
             return null;
