@@ -1,14 +1,6 @@
 package Projeto.Factory;
 
-import Projeto.Factory.Pedido.CafeInterface;
-import Projeto.Factory.Pedido.Expresso;
-import Projeto.Factory.Pedido.Coado;
-import Projeto.Factory.Pedido.CafeComLeite;
-import Projeto.Factory.Pedido.Cappuccino;
-import Projeto.Factory.Pedido.Latte;
-import Projeto.Factory.Pedido.Mocha;
-import Projeto.Factory.Pedido.IcedCoffee;
-import Projeto.Factory.Pedido.Frappe;
+import Projeto.Factory.Pedido.*;
 
 public class CafeFactory {
 
@@ -30,6 +22,8 @@ public class CafeFactory {
                 return new IcedCoffee();
             case "frappe":
                 return new Frappe();
+            case "cortado":
+                return new Cortado();
             default:
                 throw new IllegalArgumentException("Tipo de café não disponível: " + tipo);
         }

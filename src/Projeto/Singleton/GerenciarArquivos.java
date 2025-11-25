@@ -52,7 +52,7 @@ public class GerenciarArquivos {
     }
 
     public void inicializarEstoqueVazio() {
-        String[] tipos = {"Expresso", "Coado", "cafe com leite", "Cappuccino", "Latte", "Mocha", "iced coffee", "Frappe", "Cortado", "Americano"};
+        String[] tipos = {"Expresso", "Coado", "cafe com leite", "Cappuccino", "Latte", "Mocha", "iced coffee", "Frappe", "Cortado"};
         for (String tipo : tipos) {
             estoqueQuantidades.put(tipo, 0);
         }
