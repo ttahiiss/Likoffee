@@ -38,7 +38,7 @@ public class GerenciarArquivos {
                 while ((linha = br.readLine()) != null) {
                     String[] partes = linha.split("\\|");
                     if (partes.length == 3) {
-                        String tipo = partes[0];
+                        String tipo = partes[0].trim().toLowerCase();
                         int quantidade = Integer.parseInt(partes[2]);
                         estoqueQuantidades.put(tipo, quantidade);
                     }else {
@@ -52,7 +52,7 @@ public class GerenciarArquivos {
     }
 
     public void inicializarEstoqueVazio() {
-        String[] tipos = {"Expresso", "Coado", "cafe com leite", "Cappuccino", "Latte", "Mocha", "iced coffee", "Frappe"};
+        String[] tipos = {"expresso", "coado", "cafe com leite", "cappuccino", "latte", "mocha", "iced coffee", "frappe"};
         for (String tipo : tipos) {
             estoqueQuantidades.put(tipo, 0);
         }

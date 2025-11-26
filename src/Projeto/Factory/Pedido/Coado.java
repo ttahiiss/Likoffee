@@ -4,7 +4,7 @@ public class Coado implements CafeInterface {
 
     @Override
     public String getTipo() {
-        return "Coado";
+        return "coado";
     }
 
     @Override

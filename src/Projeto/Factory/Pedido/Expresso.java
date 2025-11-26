@@ -4,7 +4,7 @@ public class Expresso implements CafeInterface {
 
     @Override
     public String getTipo() {
-        return "Expresso";
+        return "expresso";
     }
 
     @Override

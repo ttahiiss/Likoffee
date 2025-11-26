@@ -5,7 +5,7 @@ public class Frappe implements CafeInterface {
 
     @Override
     public String getTipo() {
-        return "Frappe";
+        return "frappe";
     }
 
     @Override

@@ -4,7 +4,7 @@ public class Mocha implements CafeInterface {
 
     @Override
     public String getTipo() {
-        return "Mocha";
+        return "mocha";
     }
 
     @Override
