@@ -239,7 +239,7 @@ public static void executarModoGerente() {
 
             case 2:
                 System.out.print("\n==Opções==");
-                System.out.println("\nCafe com Leite | Cappuccino | \nCoado | Cortado | Expresso | \nFrappe | Iced Coffee | Latte | \nou Mocha");
+                System.out.println("\nCafe com Leite | Cappuccino | \nCoado | Mocha | Expresso | \nFrappe | Iced Coffee | Latte |");
                 System.out.print("\nDigite o tipo do café: ");
                 String tipoAdd = entrada.nextLine().trim().toLowerCase();
                 System.out.print("\nDigite a quantidade a adicionar: ");

@@ -3,5 +3,4 @@ cafe com leite|5,20|0
 expresso|4,50|0
 cappuccino|6,80|0
 mocha|8,50|0
-latte|7,20|0
 iced coffee|9,80|0
